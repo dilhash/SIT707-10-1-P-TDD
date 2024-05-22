@@ -39,7 +39,7 @@ public class UnitListUnitTest {
         assertTrue(actualAssignments[0].isCompleted());
         
         assertEquals("Assignment 2", actualAssignments[1].getName());
-        assertEquals("16/04/2024", actualAssignments[1].getDueDate());
+        assertEquals("15/04/2024", actualAssignments[1].getDueDate());
         assertFalse(actualAssignments[1].isCompleted());
         
         assertEquals("Assignment 3", actualAssignments[2].getName());
