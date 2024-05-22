@@ -15,7 +15,6 @@ public class UnitListUnitTest {
         String[] actualUnitNames = unitList.getUnitList();
 
         // Assert
-        // Intentionally failing test by asserting against incorrect values
         assertArrayEquals(new String[]{"SIT707", "SIT737", "SIT791"}, actualUnitNames);
 	}
 	
@@ -31,18 +30,16 @@ public class UnitListUnitTest {
 
         // Act
         Assignment [] actualAssignments = unitList.getAssignmentListForUnit("SIT707");
-        // Act
        
 
         // Assert
-        // Intentionally failing test by asserting against incorrect values
         assertEquals(3, actualAssignments.length);
         assertEquals("Assignment 1", actualAssignments[0].getName());
         assertEquals("12/04/2024", actualAssignments[0].getDueDate());
         assertTrue(actualAssignments[0].isCompleted());
         
         assertEquals("Assignment 2", actualAssignments[1].getName());
-        assertEquals("15/04/2024", actualAssignments[1].getDueDate());
+        assertEquals("16/04/2024", actualAssignments[1].getDueDate());
         assertFalse(actualAssignments[1].isCompleted());
         
         assertEquals("Assignment 3", actualAssignments[2].getName());
