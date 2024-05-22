@@ -16,7 +16,7 @@ public class UnitListUnitTest {
 
         // Assert
         // Intentionally failing test by asserting against incorrect values
-        assertArrayEquals(new String[]{"SIT708", "SIT737", "SIT792"}, actualUnitNames);
+        assertArrayEquals(new String[]{"SIT707", "SIT737", "SIT791"}, actualUnitNames);
 	}
 
 }
