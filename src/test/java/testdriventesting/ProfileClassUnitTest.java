@@ -6,14 +6,18 @@ import org.junit.Test;
 
 public class ProfileClassUnitTest {
 	
-    private String name;
+	
 
-    public ProfileClass(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+	/*
+	@Test
+	public void matchesNothingwhenProfileEmpty() {
+		Profile profile = new Profile();
+		Question question = new BooleanQuestion(1, "Relocation package?");
+		Criterion criterion(new Answer(quesiton, Bool.TRUE), Weight.DontCare);
+		
+		boolean result = profile.matches(criterion);
+		Assert.assertFalse(result);
+		}
+		*/
 	
 }
