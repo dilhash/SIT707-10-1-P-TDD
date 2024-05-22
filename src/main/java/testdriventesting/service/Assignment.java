@@ -1,4 +1,4 @@
-package testdriventesting;
+package testdriventesting.service;
 
 public class Assignment {
     private String name;
