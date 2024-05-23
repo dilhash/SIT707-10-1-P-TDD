@@ -43,4 +43,17 @@ public class RoutingServlet {
 
         return "view-assignments"; 
     }
+
+    @GetMapping("/filterAssignments")
+    public String filterAssignments(@RequestParam("unit") String unit, @RequestParam("targetGrade") String targetGrade, Model model) {
+        System.out.println("Filtering assignments for unit: " + unit + " with target grade: " + targetGrade);
+
+        // Retrieve the assignment list for the specified unit
+        Assignment[] assignments = unitListService.getAssignmentListForUnit(unit);
+        Assignment[] filteredAssignments = unitListService.filterAssignmentsByGrade(assignments, targetGrade);
+        model.addAttribute("assignments", filteredAssignments);
+        model.addAttribute("unit", unit);
+
+        return "view-assignments";
+    }
 }

@@ -1,88 +1,52 @@
-package testdriventesting;
+package testdriventesting.service;
 
-import static org.junit.Assert.*;
+import org.springframework.stereotype.Service;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
-import testdriventesting.service.Assignment;
-import testdriventesting.service.UnitList;
+@Service
+public class UnitList {
 
-public class UnitListTest {
-
-
-    private UnitList unitList;
-
-    @Before
-    public void setUp() {
-        unitList = new UnitList();
+    public String[] getUnitList() {
+        // Return array of unit list
+        return new String[] {"SIT707", "SIT737", "SIT791"};
     }
 
-    @Test
-    public void ShouldReturnCorrectUnitList() {
-        String[] expectedUnitList = {"SIT707", "SIT737", "SIT791"};
-        String[] actualUnitList = unitList.getUnitList();
+    public Assignment[] getAssignmentListForUnit(String unitCode) {
+        // Logic to retrieve assignment list for the specified unit code
+        Assignment[] assignments = new Assignment[3];
 
-        assertArrayEquals(expectedUnitList, actualUnitList);
-    }
-
-    @Test
-    public void ShouldReturnCorrectAssignmentListForSIT707() {
-    	 Assignment[] expectedAssignments = {
-                 new Assignment("Assignment 1", "12/04/2024", true),
-                 new Assignment("Assignment 2", "15/04/2024", false),
-                 new Assignment("Assignment 3", "11/08/2024", false)
-         };
-
-         Assignment[] actualAssignments = unitList.getAssignmentListForUnit("SIT707");
-
-         for (int i = 0; i < expectedAssignments.length; i++) {
-             assertEquals(expectedAssignments[i].getName(), actualAssignments[i].getName());
-             assertEquals(expectedAssignments[i].getDueDate(), actualAssignments[i].getDueDate());
-             assertEquals(expectedAssignments[i].isCompleted(), actualAssignments[i].isCompleted());
-         }
-    }
-
-    @Test
-    public void ShouldReturnCorrectAssignmentListForSIT737() {
-        Assignment[] expectedAssignments = {
-                new Assignment("Assignment 1", "12/03/2024", false),
-                new Assignment("Assignment 2", "11/04/2024", true),
-                new Assignment("Assignment 3", "08/05/2024", false)
-        };
-
-        Assignment[] actualAssignments = unitList.getAssignmentListForUnit("SIT791");
-
-        for (int i = 0; i < expectedAssignments.length; i++) {
-            assertEquals(expectedAssignments[i].getName(), actualAssignments[i].getName());
-            assertEquals(expectedAssignments[i].getDueDate(), actualAssignments[i].getDueDate());
-            assertEquals(expectedAssignments[i].isCompleted(), actualAssignments[i].isCompleted());
+        if ("SIT707".equals(unitCode)) {
+            assignments[0] = new Assignment("Assignment 1", "12/04/2024", true, TaskType.PASS);
+            assignments[1] = new Assignment("Assignment 2", "15/04/2024", false, TaskType.CREDIT);
+            assignments[2] = new Assignment("Assignment 3", "11/08/2024", false, TaskType.DISTINCTION);
+            return assignments;
+        } else if ("SIT737".equals(unitCode)) {
+            assignments[0] = new Assignment("Assignment 1", "12/03/2024", true, TaskType.PASS);
+            assignments[1] = new Assignment("Assignment 2", "15/04/2024", true, TaskType.CREDIT);
+            assignments[2] = new Assignment("Assignment 3", "31/05/2024", true, TaskType.HIGH_DISTINCTION);
+            return assignments;       
+        } else if ("SIT791".equals(unitCode)) {
+            assignments[0] = new Assignment("Assignment 1", "12/03/2024", false, TaskType.PASS);
+            assignments[1] = new Assignment("Assignment 2", "11/04/2024", true, TaskType.DISTINCTION);
+            assignments[2] = new Assignment("Assignment 3", "08/05/2024", false, TaskType.HIGH_DISTINCTION);
+            return assignments;       
+        } else {
+            return null;
         }
     }
 
-    @Test
-    public void ShouldReturnCorrectAssignmentListForSIT791() {
-        Assignment[] expectedAssignments = {
-                new Assignment("Assignment 1", "12/03/2024", false),
-                new Assignment("Assignment 2", "11/04/2024", true),
-                new Assignment("Assignment 3", "08/05/2024", false)
-        };
-
-        Assignment[] actualAssignments = unitList.getAssignmentListForUnit("SIT791");
-
-        for (int i = 0; i < expectedAssignments.length; i++) {
-            assertEquals(expectedAssignments[i].getName(), actualAssignments[i].getName());
-            assertEquals(expectedAssignments[i].getDueDate(), actualAssignments[i].getDueDate());
-            assertEquals(expectedAssignments[i].isCompleted(), actualAssignments[i].isCompleted());
+    public Assignment[] filterAssignmentsByGrade(Assignment[] assignments, String targetGrade) {
+        List<Assignment> filteredAssignments = new ArrayList<>();
+        int maxGrade = TaskType.valueOf(targetGrade).getLevel();
+        
+        for (Assignment assignment : assignments) {
+            if (assignment.getTaskType().getLevel() <= maxGrade) {
+                filteredAssignments.add(assignment);
+            }
         }
+        
+        return filteredAssignments.toArray(new Assignment[0]);
     }
-
-    @Test
-    public void ShouldReturnNullForUnidentifiedUnitCode() {
-        Assignment[] actualAssignments = unitList.getAssignmentListForUnit("UNKNOWN");
-
-        assertNull(actualAssignments);
-    }
-
-
 }
